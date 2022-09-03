@@ -3,12 +3,14 @@ const theme = {
     textPrimary: '#24292e',
     textSecondary: '#586069',
     primary: '#0366d6',
-    tabBackround: '#24292e',
-    tabFont: '#ffffff'
+    tabBackground: '#24292e',
+    tabFont: '#ffffff',
+    mainBackground: '#e1e4e8',
+    itemBackground: 'white'
   },
   fontSizes: {
     body: 14,
-    subheading: 16,
+    subheading: 18,
   },
   fonts: {
     main: 'System',

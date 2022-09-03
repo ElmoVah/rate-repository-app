@@ -1,17 +1,8 @@
 import React from "react";
-import { View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import theme from '../theme';
-import RepositoryInfo from "./RepositoryInfo";
-import RepositoryStats from "./RepositoryStats";
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: theme.colors.itemBackground,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: 'flex-start',
-  },
   upperPart: {
     display: "flex",
     flexDirection: "row",
@@ -49,13 +40,21 @@ const styles = StyleSheet.create({
   }
 })
 
-const RepositoryItem = ({ item }) => {
+
+const RepositoryInfo = ({ item }) => {
   return (
-    <View style={styles.container} >
-      <RepositoryInfo item={item} />
-      <RepositoryStats item={item} />
+    <View style={styles.upperPart} >
+      <Image
+        style={styles.avatarImage}
+        source={{ uri: item.ownerAvatarUrl }}
+      />
+      <View style={styles.info}>
+        <Text style={styles.name}>{item.fullName}</Text>
+        <Text style={styles.descirption}>{item.description}</Text>
+        <Text style={styles.language}>{item.language}</Text>
+      </View>
     </View>
   )
 }
 
-export default RepositoryItem;
+export default RepositoryInfo;
