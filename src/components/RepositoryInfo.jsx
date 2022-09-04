@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
   }
 })
 
-
 const RepositoryInfo = ({ item }) => {
   return (
     <View style={styles.upperPart} >

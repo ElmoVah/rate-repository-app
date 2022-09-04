@@ -1,5 +1,6 @@
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import theme from '../theme';
+import { useNavigate } from 'react-router-native'
 
 
 const styles = StyleSheet.create({
@@ -12,14 +13,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const onPress = () => {
-  console.log("Repositories pressed");
-}
-
-const AppBarTab = ({ tabName }) => {
+const AppBarTab = ({ tabName, link }) => {
+  const navigate = useNavigate()
   return (
     <View>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={() => navigate(link, { replace: true })}>
         <Text style={styles.text}>{tabName}</Text>
       </Pressable>
     </View>
