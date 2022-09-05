@@ -7,7 +7,8 @@ const theme = {
     tabFont: '#ffffff',
     mainBackground: '#e1e4e8',
     itemBackground: 'white',
-    signInBorder: '#586069'
+    signInBorder: '#586069',
+    warning: '#d73a4a'
   },
   fontSizes: {
     body: 14,
