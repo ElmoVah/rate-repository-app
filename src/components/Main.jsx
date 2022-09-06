@@ -4,6 +4,7 @@ import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 import { Route, Routes } from 'react-router-native';
 import SignIn from './SignIn';
+import Constants from 'expo-constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  console.log(Constants.manifest);
   return (
     <View style={styles.container}>
       <AppBar />
