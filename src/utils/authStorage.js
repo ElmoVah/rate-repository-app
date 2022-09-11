@@ -6,11 +6,16 @@ class AuthStorage {
   }
 
   async getAccessToken() {
-    const rawToken = await AsyncStorage.getItem(
-      `${this.namespace}:accessToken`,
-    );
+    try {
+      const rawToken = await AsyncStorage.getItem(
+        `${this.namespace}:accessToken`,
+      );
 
-    return rawToken ? JSON.parse(rawToken) : [];
+      return rawToken ? JSON.parse(rawToken) : [];
+
+    } catch (e) {
+      console.log('Error at getAccesToken: ', e);
+    }
   }
 
   async setAccessToken(accessToken) {
@@ -20,14 +25,17 @@ class AuthStorage {
         JSON.stringify(accessToken),
       );
     } catch (e) {
-      console.log('Error at setAccestToken', e);
+      console.log('Error at setAccestToken: ', e);
     }
-    
   }
 
   async removeAccessToken() {
+    try {
     await AsyncStorage.removeItem(
       `${this.namespace}:accessToken`);
+    } catch (e) {
+      console.log('Error at removeAccesToken: ', e);
+    }
   }
 }
 
