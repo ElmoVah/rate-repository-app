@@ -21,4 +21,21 @@ export const ME = gql`
       username
     }
   }
-`
+`;
+
+export const GET_SINGLE_REPOSITORY = gql`
+  query Repository($id: ID!) {
+    repository(id: $id ) {
+      id
+      fullName
+      description
+      language
+      ownerAvatarUrl
+      stargazersCount
+      forksCount
+      reviewCount
+      ratingAverage
+      url
+    }
+  }
+`;

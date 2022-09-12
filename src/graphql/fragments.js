@@ -13,3 +13,19 @@ export const REPOSITORY_DETAILS = gql`
     ratingAverage
   }
 `;
+/*
+export const SINGLE_REPOSITORY_DETAILS = gql`
+  fragment SingeRepositoryDetails on Repository {
+    id
+    fullName
+    url
+    ratingAverage
+    reviewCount
+    stargazersCount
+    ownerAvatarUrl
+    language
+    description
+    forksCount
+    name
+  }
+`;*/
