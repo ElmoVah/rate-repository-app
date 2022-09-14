@@ -1,10 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text, Pressable } from 'react-native';
-import { useParams } from "react-router-native";
 import theme from '../../theme';
 import RepositoryInfo from "./RepositoryInfo";
-import RepositoryStats from "./RepositoryStats";
-import useRepository from "../../hooks/useRepository";
+import RepositoryStats from "../RepositoryList/RepositoryStats";
 import { openURL } from 'expo-linking'
 
 const styles = StyleSheet.create({
@@ -59,44 +57,41 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center'
   },
-  buttonText:{
+  buttonText: {
     color: theme.colors.itemBackground,
     fontSize: theme.fontSizes.subheading,
     fontWeight: theme.fontWeights.bold,
+  },
+  separator: {
+    height: 10,
   }
-})
+});
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, showLink }) => {
 
-  if (item !== null) return (
+  if (!showLink) return (
     <View style={styles.container} testID="repositoryItem" >
       <RepositoryInfo item={item} />
       <RepositoryStats item={item} />
     </View>
-  )
-
-  const repositoryId = useParams().id;
-  const { repositoryItem, loading } = useRepository(repositoryId);
-
-  if (loading || !repositoryItem) {
-    return <Text>Loading...</Text>
-  }
+  );
 
   const handlePress = async () => {
-    await openURL(repositoryItem.url)
-  }
+    await openURL(item.url)
+  };
 
   return (
-    <View style={styles.container} >
-      <RepositoryInfo item={repositoryItem} />
-      <RepositoryStats item={repositoryItem} />
-      <Pressable onPress={handlePress} style={styles.button}>
-        <Text style={styles.buttonText}>Open in GitHub</Text>
-      </Pressable>
+    <View>
+      <View style={styles.container} >
+        <RepositoryInfo item={item} />
+        <RepositoryStats item={item} />
+        <Pressable onPress={handlePress} style={styles.button}>
+          <Text style={styles.buttonText}>Open in GitHub</Text>
+        </Pressable>
+      </View>
+      <View style={styles.separator} />
     </View>
-    )
-
-
-}
+  );
+};
 
 export default RepositoryItem;

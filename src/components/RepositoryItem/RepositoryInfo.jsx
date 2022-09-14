@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5
   }
-})
+});
 
 const RepositoryInfo = ({ item }) => {
   return (
@@ -53,7 +53,7 @@ const RepositoryInfo = ({ item }) => {
         <Text style={styles.language}>{item.language}</Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
 export default RepositoryInfo;

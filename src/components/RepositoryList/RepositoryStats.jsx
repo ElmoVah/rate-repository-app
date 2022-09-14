@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from 'react-native';
-import ItemCounter from "./ItemCounter";
+import ItemCounter from "../RepositoryItem/ItemCounter";
 
 const styles = StyleSheet.create({
   container: {
