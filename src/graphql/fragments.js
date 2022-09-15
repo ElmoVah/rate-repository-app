@@ -11,21 +11,19 @@ export const REPOSITORY_DETAILS = gql`
     forksCount
     reviewCount
     ratingAverage
+    url
   }
 `;
-/*
-export const SINGLE_REPOSITORY_DETAILS = gql`
-  fragment SingeRepositoryDetails on Repository {
+
+export const REVIEW_DETAILS = gql`
+  fragment ReviewDetails on Review {
     id
-    fullName
-    url
-    ratingAverage
-    reviewCount
-    stargazersCount
-    ownerAvatarUrl
-    language
-    description
-    forksCount
-    name
+    text
+    rating
+    createdAt
+    user {
+      id
+      username
+    }
   }
-`;*/
+`

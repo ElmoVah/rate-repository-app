@@ -24,16 +24,18 @@ const styles = StyleSheet.create({
   }
 });
 
-const SignInForm = ({ onSubmit }) => {
+const ReviewForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
-      <FormikTextInput name="username" placeholder="Username" />
-      <FormikTextInput name="password" placeholder="Password" secureTextEntry />
+      <FormikTextInput name="owner" placeholder="Repository owner name" />
+      <FormikTextInput name="repository" placeholder="Repository name" />
+      <FormikTextInput name="rating" placeholder="Rating between 0 and 100" />
+      <FormikTextInput multiline={true} name="text" placeholder="Review" />
       <Pressable onPress={onSubmit} style={styles.button}>
-        <Text style={styles.buttonText}>Sign in</Text>
+        <Text style={styles.buttonText}>Create a review</Text>
       </Pressable>
     </View>
   )
 };
 
-export default SignInForm;
+export default ReviewForm;

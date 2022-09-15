@@ -44,6 +44,10 @@ const AppBar = () => {
           ? <AppBarTab onPress={() => navigate("/signin", { replace: true })} tabName="Sign in" />
           : <AppBarTab onPress={signOut} tabName="Sign out" />
         }
+        {data.me === null
+          ? null
+          : <AppBarTab onPress={() => navigate("/createReview", { replace: true })} tabName="Create Review" />
+        }
       </ScrollView>
     </View>
   );
