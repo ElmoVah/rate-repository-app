@@ -33,7 +33,25 @@ const AppBar = () => {
   };
 
   if (loading) {
-    return(<View style={styles.container}></View>)
+    return (<View style={styles.container}></View>)
+  }
+
+  const LoggedIn = () => {
+    return (
+      <>
+        <AppBarTab onPress={() => navigate("/createReview", { replace: true })} tabName="Create Review" />
+        <AppBarTab onPress={signOut} tabName="Sign out" />
+      </>
+    );
+  };
+
+  const LoggedOut = () => {
+    return(
+      <>
+        <AppBarTab onPress={() => navigate("/signin", { replace: true })} tabName="Sign in" />
+        <AppBarTab onPress={() => navigate("signup", { replace: true })} tabName="Sign up" />
+      </>
+    )
   }
 
   return (
@@ -41,16 +59,8 @@ const AppBar = () => {
       <ScrollView horizontal>
         <AppBarTab onPress={() => navigate("/", { replace: true })} tabName="Repositories" />
         {data.me === null
-          ? null
-          : <AppBarTab onPress={() => navigate("/createReview", { replace: true })} tabName="Create Review" />
-        }
-        {data.me === null
-          ? <AppBarTab onPress={() => navigate("/signin", { replace: true })} tabName="Sign in" />
-          : <AppBarTab onPress={signOut} tabName="Sign out" />
-        }
-        {data.me === null
-          ? <AppBarTab onPress={() => navigate("signup", { replace: true })} tabName="Sign up"/>
-          : null
+          ? <LoggedOut />
+          : <LoggedIn />
         }
       </ScrollView>
     </View>
