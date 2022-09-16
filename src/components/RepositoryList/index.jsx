@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { FlatList, View, StyleSheet, Text } from 'react-native';
+import { FlatList, View, StyleSheet } from 'react-native';
 import RepositoryItem from '../RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
 import RepositorySorter from './RepositorySorter';
+import { Searchbar } from 'react-native-paper';
+import { useDebounce } from 'use-debounce';
 
 const styles = StyleSheet.create({
   separator: {
@@ -10,7 +12,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RepositoryListContainer = ({ repositories, sorting, setSorting }) => {
+export const RepositoryListContainer = ({ repositories, sorting, setSorting, searchKeyword, setSearchKeyword }) => {
 
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -19,23 +21,30 @@ export const RepositoryListContainer = ({ repositories, sorting, setSorting }) =
   const ItemSeparator = () => <View style={styles.separator} />;
 
   return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => (<RepositoryItem item={item} />)}
-      keyExtractor={item => item.id}
-      ListHeaderComponent={() => <RepositorySorter sorting={sorting} setSorting={setSorting} />}
-    />
+    <>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={setSearchKeyword}
+        value={searchKeyword}
+      />
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => (<RepositoryItem item={item} />)}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={() => <RepositorySorter sorting={sorting} setSorting={setSorting} />}
+      />
+    </>
   );
 };
 
 const RepositoryList = () => {
   const [sorting, setSorting] = useState("LATEST");
-  const { repositories, loading } = useRepositories(sorting);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [debounceSearch] = useDebounce(searchKeyword, 500)
+  const { repositories } = useRepositories(sorting, debounceSearch);
 
-  if (loading) return <Text>Loading...</Text>;
-
-  return <RepositoryListContainer repositories={repositories} sorting={sorting} setSorting={setSorting} />;
+  return <RepositoryListContainer repositories={repositories} sorting={sorting} setSorting={setSorting} searchKeyword={searchKeyword} setSearchKeyword={setSearchKeyword}/>;
 };
 
 export default RepositoryList;
