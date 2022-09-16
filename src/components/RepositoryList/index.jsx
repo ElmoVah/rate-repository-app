@@ -1,8 +1,8 @@
-import React from 'react';
-import { FlatList, View, StyleSheet, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, View, StyleSheet, Text } from 'react-native';
 import RepositoryItem from '../RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
-import { useNavigate } from 'react-router-native';
+import RepositorySorter from './RepositorySorter';
 
 const styles = StyleSheet.create({
   separator: {
@@ -10,8 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RepositoryListContainer = ({ repositories }) => {
-  const navigate = useNavigate();
+export const RepositoryListContainer = ({ repositories, sorting, setSorting }) => {
 
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -19,33 +18,24 @@ export const RepositoryListContainer = ({ repositories }) => {
 
   const ItemSeparator = () => <View style={styles.separator} />;
 
-  const openRepository = (id) => {
-    navigate(`/repository/${id}`, { replace: true })
-  }
-
-  const renderItem = ({ item }) => {
-    return (
-      <Pressable onPress={() => {openRepository(item.id)}}>
-        <RepositoryItem item={item} />
-      </Pressable>
-    );
-  };
-
   return (
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      renderItem={renderItem}
+      renderItem={({ item }) => (<RepositoryItem item={item} />)}
       keyExtractor={item => item.id}
+      ListHeaderComponent={() => <RepositorySorter sorting={sorting} setSorting={setSorting} />}
     />
   );
-}
+};
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [sorting, setSorting] = useState("LATEST");
+  const { repositories, loading } = useRepositories(sorting);
 
-  return <RepositoryListContainer repositories={repositories} />;
+  if (loading) return <Text>Loading...</Text>;
 
+  return <RepositoryListContainer repositories={repositories} sorting={sorting} setSorting={setSorting} />;
 };
 
 export default RepositoryList;

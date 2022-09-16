@@ -2,8 +2,9 @@ import React from "react";
 import { View, StyleSheet, Text, Pressable } from 'react-native';
 import theme from '../../theme';
 import RepositoryInfo from "./RepositoryInfo";
-import RepositoryStats from "../RepositoryList/RepositoryStats";
+import RepositoryStats from "./RepositoryStats";
 import { openURL } from 'expo-linking'
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -68,12 +69,19 @@ const styles = StyleSheet.create({
 });
 
 const RepositoryItem = ({ item, showLink }) => {
+  const navigate = useNavigate();
+  
+  const openRepository = (id) => {
+    navigate(`/repository/${id}`, { replace: true })
+  }
 
   if (!showLink) return (
     <View style={styles.container} testID="repositoryItem" >
-      <RepositoryInfo item={item} />
-      <RepositoryStats item={item} />
-    </View>
+      <Pressable onPress={() => { openRepository(item.id) }}>
+        <RepositoryInfo item={item} />
+        <RepositoryStats item={item} />
+      </Pressable>
+    </View >
   );
 
   const handlePress = async () => {

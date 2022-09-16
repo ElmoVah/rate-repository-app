@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from 'react-native';
-import ItemCounter from "../RepositoryItem/ItemCounter";
+import ItemCounter from "./ItemCounter";
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: 'space-around',
   }
-})
+});
 
 const RepositoryStats = ({ item }) => {
   return (
@@ -18,7 +18,7 @@ const RepositoryStats = ({ item }) => {
       <ItemCounter count={item.reviewCount} name="Reviews" />
       <ItemCounter count={item.ratingAverage} name="Rating" />
     </View>
-  )
-}
+  );
+};
 
 export default RepositoryStats;
