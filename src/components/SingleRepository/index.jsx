@@ -11,16 +11,20 @@ const styles = StyleSheet.create({
 });
 
 const SingleRepository = () => {
-
+  const fetchItemLimit = 3;
   const repositoryId = useParams().id;
-  const { repositoryItem, loadingRepositoryItems } = useRepository(repositoryId);
+  const { repository, fetchMore } = useRepository({ first: fetchItemLimit, id: repositoryId });
 
-  if (loadingRepositoryItems || !repositoryItem) {
+  const onEndReach = () => {
+    fetchMore();
+  };
+
+  if (!repository) {
     return <Text>Loading repository data...</Text>;
   }
 
-  const reviewNodes = repositoryItem
-    ? repositoryItem.reviews.edges.map(edge => edge.node)
+  const reviewNodes = repository
+    ? repository.reviews.edges.map(edge => edge.node)
     : [];
 
   const ItemSeparator = () => <View style={styles.separator} />;
@@ -31,7 +35,9 @@ const SingleRepository = () => {
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
       ItemSeparatorComponent={ItemSeparator}
-      ListHeaderComponent={() => <RepositoryItem item={repositoryItem} showLink={true} />}
+      ListHeaderComponent={() => <RepositoryItem item={repository} showLink={true} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
