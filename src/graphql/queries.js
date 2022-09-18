@@ -42,6 +42,7 @@ export const ME = gql`
           node {
             repository {
               fullName
+              id
             }
             ...ReviewDetails
           }

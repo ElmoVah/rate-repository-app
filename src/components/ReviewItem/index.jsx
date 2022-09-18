@@ -1,7 +1,7 @@
-import { View, StyleSheet} from "react-native";
+import { View, StyleSheet } from "react-native";
 import theme from '../../theme';
-import ReviewDetails from "./ReviewDetails";
-import ReviewScore from "./ReviewScore";
+import Buttons from "./ReviewButtons";
+import ReviewInfo from "./ReviewInfo";
 
 
 const styles = StyleSheet.create({
@@ -9,16 +9,25 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: theme.colors.itemBackground,
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "flex-start",
   }
 });
 
-const ReviewItem = ({ review }) => {
+const ReviewItem = ({ review, buttons }) => {
+
+  if (!buttons) {
+    return (
+      <View style={styles.container}>
+          <ReviewInfo review={review} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <ReviewScore score={review.rating} />
-      <ReviewDetails review={review} />
+      <ReviewInfo review={review} />
+      <Buttons review={review}/>
     </View>
   );
 };

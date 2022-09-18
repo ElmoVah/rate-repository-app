@@ -14,41 +14,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: 'flex-start',
   },
-  upperPart: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  avatarImage: {
-    width: 65,
-    height: 65,
-    borderRadius: 5,
-  },
-  info: {
-    display: "flex",
-    flexDirection: "column",
-    paddingLeft: 20,
-    paddingRight: 20
-  },
-  name: {
-    fontSize: theme.fontSizes.subheading,
-    fontWeight: theme.fontWeights.bold,
-    color: theme.colors.textPrimary,
-    marginBottom: 5
-  },
-  descirption: {
-    fontSize: theme.fontSizes.subheading,
-    color: theme.colors.textSecondary,
-    marginBottom: 5,
-    paddingRight: 20
-  },
-  language: {
-    backgroundColor: theme.colors.primary,
-    color: theme.colors.itemBackground,
-    fontSize: theme.fontSizes.subheading,
-    alignSelf: 'flex-start',
-    borderRadius: 5,
-    padding: 5
-  },
   button: {
     backgroundColor: theme.colors.primary,
     marginTop: 25,
