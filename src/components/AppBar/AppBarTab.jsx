@@ -6,8 +6,9 @@ const styles = StyleSheet.create({
     color: theme.colors.tabFont,
     fontSize: theme.fontSizes.subheading,
     fontWeight: theme.fontWeights.bold,
-    paddingLeft: 15,
-    paddingBottom: 15
+    paddingLeft: 10,
+    paddingBottom: 15,
+    paddingRight: 10
   },
 });
 

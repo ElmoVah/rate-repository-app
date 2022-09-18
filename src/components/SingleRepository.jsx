@@ -1,6 +1,6 @@
 import { FlatList, View, StyleSheet, Text } from 'react-native';
-import RepositoryItem from '../RepositoryItem';
-import useRepository from '../../hooks/useRepository';
+import RepositoryItem from './RepositoryItem';
+import useRepository from '../hooks/useRepository';
 import { useParams } from 'react-router-native';
 import ReviewItem from './ReviewItem'
 
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 });
 
 const SingleRepository = () => {
-  const fetchItemLimit = 3;
+  const fetchItemLimit = 8;
   const repositoryId = useParams().id;
   const { repository, fetchMore } = useRepository({ first: fetchItemLimit, id: repositoryId });
 

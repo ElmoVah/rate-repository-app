@@ -40,6 +40,7 @@ const AppBar = () => {
     return (
       <>
         <AppBarTab onPress={() => navigate("/createReview", { replace: true })} tabName="Create Review" />
+        <AppBarTab onPress={() => navigate("/myreviews", { replace: true })} tabName="My Reviews" />
         <AppBarTab onPress={signOut} tabName="Sign out" />
       </>
     );
@@ -49,7 +50,7 @@ const AppBar = () => {
     return(
       <>
         <AppBarTab onPress={() => navigate("/signin", { replace: true })} tabName="Sign in" />
-        <AppBarTab onPress={() => navigate("signup", { replace: true })} tabName="Sign up" />
+        <AppBarTab onPress={() => navigate("/signup", { replace: true })} tabName="Sign up" />
       </>
     )
   }
