@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RepositoryListContainer = ({ repositories, sorting, setSorting, searchKeyword, setSearchKeyword }) => {
+export const RepositoryListContainer = ({ repositories, sorting, setSorting, searchKeyword, setSearchKeyword, onEndReach }) => {
 
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -33,18 +33,32 @@ export const RepositoryListContainer = ({ repositories, sorting, setSorting, sea
         renderItem={({ item }) => (<RepositoryItem item={item} />)}
         keyExtractor={item => item.id}
         ListHeaderComponent={() => <RepositorySorter sorting={sorting} setSorting={setSorting} />}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     </>
   );
 };
 
 const RepositoryList = () => {
+  const fetchItemLimit = 8;
   const [sorting, setSorting] = useState("LATEST");
   const [searchKeyword, setSearchKeyword] = useState('');
   const [debounceSearch] = useDebounce(searchKeyword, 500)
-  const { repositories } = useRepositories(sorting, debounceSearch);
+  const { repositories, fetchMore } = useRepositories(fetchItemLimit, sorting, debounceSearch);
 
-  return <RepositoryListContainer repositories={repositories} sorting={sorting} setSorting={setSorting} searchKeyword={searchKeyword} setSearchKeyword={setSearchKeyword}/>;
+  const onEndReach = () => {
+    fetchMore();
+  };
+
+  return <RepositoryListContainer
+    repositories={repositories}
+    sorting={sorting}
+    setSorting={setSorting}
+    searchKeyword={searchKeyword}
+    setSearchKeyword={setSearchKeyword}
+    onEndReach={onEndReach}
+  />;
 };
 
 export default RepositoryList;
